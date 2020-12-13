@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap)
+
+// Color
+$color-primary: #44392D
+$color-secondary: #B28D29
+
+$color-black: #000
+$color-white: #ffffff
+
+$color-error: #b71607
+
+// FONT
+$font-primary: 'Roboto', sans-serif
+$text-size: 1.6rem
+
+// SHADOW
+$shadow: 0 2rem 5rem rgba(#000, .2)
+
+//
+$border-radius: 5px
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em //1200px/16px = 75em
+$bp-large: 62.5em //1000px/16px = 62.5em
+$bp-medium: 50em //800px/16px = 50em
+$bp-small: 37.5em //600px/16px = 37.5em
+$bp-xsmall: 31.25em //500px/16px = 31.5em
+  
+*,
+*::before,
+*::after
+  margin: 0
+  padding: 0
+  box-sizing: inherit
+
+html
+  box-sizing: border-box
+  font-size: 62.5%
+
+  @media only screen and (max-width: $bp-largest)
+    font-size: 55%
+
+body
+  font-family: $font-primary
+  color: $color-primary
+  background-color: $color-white
+  line-height: 1.4
+  font-size: $text-size
+  font-weight: 700
+
+hr
+  width: 50%
+  border: 1px solid
+  margin-bottom: 4rem
+
+  @media only screen and (max-width: $bp-small)
+    width: 90%
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+  -webkit-appearance: none
+  margin: 0
+
+input[type=number] 
+  -moz-appearance: textfield
+
+input:disabled
+  opacity: 1
+  color: $color-primary
+  background-color: rgba($color-black, .05) 
+
+button:disabled
+  opacity: 0.5   
+
+#btn-pdf,
+#btn-clean
+  @media print 
+    display: none
