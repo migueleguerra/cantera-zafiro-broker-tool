@@ -1,0 +1,17 @@
+.button
+  color: $color-white
+  border-radius: 12px
+  border: none
+  box-shadow: $shadow
+  cursor: pointer
+  width: 15rem
+  padding: 0.8rem
+
+  @media only screen and (max-width: $bp-small)
+    width: 12rem
+
+  &--primary
+    background-color: rgba($color-primary, 0.8)
+
+  &--secondary
+    background-color: $color-secondary

@@ -1,0 +1,30 @@
+.special-payments
+  display: flex
+  flex-direction: column
+  align-items: center
+  margin-bottom: 2rem
+  text-align: center
+
+  h3
+    margin-bottom: 2rem
+
+  &__form-container
+    display: flex
+    align-items: center
+
+    @media only screen and (max-width: $bp-small)
+      flex-direction: column
+
+  &__group
+    @media only screen and (max-width: $bp-small)
+      margin-bottom: 2rem
+
+  &__input
+    padding: .5rem
+    margin-right: 1rem
+    border-radius: $border-radius
+    border: 1px solid rgba($color-black, .2)
+    width: 14rem
+
+    @media only screen and (max-width: $bp-small)
+      width: 12rem

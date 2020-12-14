@@ -1,0 +1,43 @@
+.header-info
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-bottom: 2rem
+  width: 100vw
+  padding: 4rem
+
+  @media only screen and (max-width: $bp-small)
+    padding: 4rem 2rem
+
+  &__group--right
+    margin-left: 4rem
+
+    @media only screen and (max-width: $bp-small)
+      margin-left: 1rem
+  
+  &__group--left
+    margin-right: 4rem
+
+    @media only screen and (max-width: $bp-small)
+      margin-right: 1rem
+
+  &__row
+    margin-bottom: .5rem
+
+    @media only screen and (max-width: $bp-medium)
+        display: flex
+        flex-direction: column
+
+  &__label
+    display: inline-block
+    word-wrap: break-word
+    width: 18rem
+
+  &__label--right
+    font-weight: 400
+
+  &__label--select
+    padding: .5rem
+    border-radius: $border-radius
+    border: 1px solid rgba($color-black, .2)
+    width: 12rem
