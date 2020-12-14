@@ -3,13 +3,435 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <link rel="shortcut icon" href="assets/favicon.png" type="image/png" />
     <link rel="stylesheet" href="css/style.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+    <script src="data/apartments-data.json"></script>
+    <script src="data/info.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/tables.js"></script>
+    <script src="js/financial-projection.js"></script>
+    <script src="js/actions.js"></script>
+    <script src="js/index.js"></script>
+
     <title>Cotizador Comercial Cantera Zafiro</title>
   </head>
   <body>
-    <h1>Cantera Zafiro</h1>
+    <div id="container-site" class="container">
+      <div id="logos" class="header-logos">
+        <img
+          src="assets/cantera-zafiro-logo.png"
+          alt="cantera-zafiro-logo"
+          class="img--altana"
+        />
+        <img src="assets/carza-logo.png" alt="carza-logo" class="img--carza" />
+      </div>
+
+      <hr />
+
+      <div class="pdf-button-container">
+        <button
+          id="btn-pdf"
+          class="button button--primary"
+          onclick="createPDF()"
+        >
+          Imprimir PDF
+        </button>
+      </div>
+
+      <div id="info" class="header-info">
+        <div class="header-info__group header-info__group--left">
+          <div class="header-info__row">
+            <label class="header-info__label"> Fecha: </label>
+            <label
+              id="date"
+              class="hader-info__label header-info__label--right"
+            ></label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Asesor Inmobliario: </label>
+            <label
+              id="broker"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Cliente: </label>
+            <label
+              id="client"
+              class="hader-info__label header-info__label--right"
+            ></label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Corre electrónico: </label>
+            <label
+              id="email"
+              class="hader-info__label header-info__label--right"
+            ></label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Teléfono: </label>
+            <label
+              id="tel"
+              class="hader-info__label header-info__label--right"
+            ></label>
+          </div>
+        </div>
+
+        <div class="header-info__group header-info__group--right">
+          <div class="header-info__row">
+            <label class="header-info__label"> Departamento: </label>
+            <select
+              name="unit"
+              id="units"
+              class="header-info__label header-info__label--select header-info__label--right"
+              onchange="onApartmentChange(this.value)"
+            ></select>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Nivel: </label>
+            <label
+              id="unit-floor"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Tipo: </label>
+            <label
+              id="unit-type"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Programa: </label>
+            <label
+              id="unit-structure"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Área interior: </label>
+            <label
+              id="unit-interior-size"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Área balcón: </label>
+            <label
+              id="unit-balcony-size"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Área total: </label>
+            <label
+              id="unit-total-size"
+              class="hader-info__label header-info__label--right"
+            >
+              88.21
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Vista: </label>
+            <label
+              id="unit-view"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Precio de Lista (MXN): </label>
+            <label
+              id="unit-price"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> precio m<sup>2</sup>: </label>
+            <label
+              id="unit-m2-price"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Estacionamiento: </label>
+            <label
+              id="unit-parking-space"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+          <div class="header-info__row">
+            <label class="header-info__label"> Estatus: </label>
+            <label
+              id="unit-status"
+              class="hader-info__label header-info__label--right"
+            >
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div id="unit-info" class="unit-form">
+        <div class="unit-form__row">
+          <input
+            id="down-payment-percentage"
+            class="unit-form__input unit-form__input--percentage"
+            value="100"
+            min="5"
+            max="100"
+            type="number"
+            onblur="onDownPaymentPercentageBlur()"
+          />
+          <p>&nbsp;%</p>
+          <label class="unit-form__label"> Enganche </label>
+          <input
+            id="down-payment-price"
+            class="unit-form__input unit-form__input--price"
+            onblur="onDownPaymentPriceBlur()"
+          />
+        </div>
+
+        <div class="unit-form__row">
+          <input
+            id="monthly-percentage"
+            class="unit-form__input unit-form__input--percentage"
+            value="15"
+            min="15"
+            max="100"
+            type="number"
+            onblur="onMonthlyPercentageBlur()"
+          />
+          <p>&nbsp;%</p>
+          <label class="unit-form__label"> Mensualidad </label>
+          <input
+            id="monthly-price"
+            class="unit-form__input unit-form__input--price"
+            onblur="onMonthlyPriceBlur()"
+          />
+        </div>
+
+        <div class="unit-form__row">
+          <input
+            id="monthly-payments"
+            class="unit-form__input unit-form__input--percentage"
+            value="22"
+            disabled
+          />
+          <label class="unit-form__label unit-form__label--monthly-payments">
+            Mensualidades
+          </label>
+          <input
+            id="monthly-payments-price"
+            class="unit-form__input unit-form__input--price"
+            onblur="onMonthlyPaymentsPriceBlur()"
+          />
+        </div>
+
+        <div class="unit-form__row">
+          <input
+            id="special-payments-percentage"
+            class="unit-form__input unit-form__input--percentage"
+            disabled
+          />
+          <p>&nbsp;%</p>
+          <label class="unit-form__label"> Aportaciones </label>
+          <input
+            id="special-payments-price"
+            class="unit-form__input unit-form__input--price"
+            type="text"
+            disabled
+          />
+        </div>
+
+        <div class="unit-form__row">
+          <input
+            id="deed-percentage"
+            class="unit-form__input unit-form__input--percentage"
+            disabled
+          />
+          <p>&nbsp;%</p>
+          <label class="unit-form__label"> Escrituración </label>
+          <input
+            id="deed-price"
+            class="unit-form__input unit-form__input--price"
+            type="text"
+            disabled
+          />
+        </div>
+
+        <div class="unit-form__row">
+          <input
+            id="discount-percentage"
+            class="unit-form__input unit-form__input--percentage"
+            disabled
+          />
+          <p>&nbsp;%</p>
+          <label class="unit-form__label"> Descuento </label>
+          <input
+            id="discount-price"
+            class="unit-form__input unit-form__input--price"
+            disabled
+          />
+        </div>
+
+        <div class="clean-button-container">
+          <button
+            id="btn-clean"
+            class="button button--secondary"
+            onclick="cleanForm()"
+          >
+            Limpiar
+          </button>
+        </div>
+
+        <div class="unit-form__row unit-form__row--end">
+          <div class="unit-form__row-end">
+            <label for="final-price" class="unit-form__label">
+              Precio Final:
+            </label>
+            <input
+              id="final-price"
+              class="unit-form__input unit-form__input--price"
+              disabled
+            />
+          </div>
+
+          <div class="unit-form__row-end">
+            <label for="final-m2-price" class="unit-form__label">
+              Precio m<sup>2</sup> Final:
+            </label>
+            <input
+              id="final-m2-price"
+              class="unit-form__input unit-form__input--price"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="special-payments-container" class="special-payments">
+        <h3>APORTACIONES EXTRAORDINARIAS</h1>
+        <div class="special-payments__form-container">
+          <div class="special-payments__group">
+            <select
+              id="months"
+              name="month"
+              class="special-payments__input"
+            ></select>
+            <input
+              id="special-payments-amount"
+              type="text"
+              value="$0"
+              class="special-payments__input"
+              onblur="onSpecialPaymentsAmountBlur()"
+            />
+          </div>
+          <button 
+            id="btn-add" 
+            class="button button--primary" 
+            onclick="addSpecialPayment()">
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <div id="special-payments-table-container" class="table-container">
+        <table id="special-payments-table" class="table"></table>
+      </div>
+
+      <div id="terms-info-hidden" class="terms terms-hidden">
+        <p class="terms__p">
+          *Vigencia de 15 dìas a partir de la fecha de cotización.
+        </p>
+        <p class="terms__p">*Los precios no incluyen gastos notariales.</p>
+        <p class="terms__p">
+          *Los valores arriba señalados son informativos y pueden varíar sin
+          previo avíso.
+        </p>
+        <p class="terms__p">
+          *La unidad se apartará con un mínimo de MXP$25,000.00
+        </p>
+      </div>
+
+      <div id="down-payments-table-container" class="table-container">
+        <h3>PLAN DE PAGOS DEL ENGANCHE</h3>
+        <table id="down-payments-table" class="table"></table>
+      </div>
+
+      <div id="image" class="image"></div>
+
+      <div id="terms-info" class="terms">
+        <p class="terms__p">
+          *Vigencia de 15 dìas a partir de la fecha de cotización.
+        </p>
+        <p class="terms__p">*Los precios no incluyen gastos notariales.</p>
+        <p class="terms__p">
+          *Los valores arriba señalados son informativos y pueden varíar sin
+          previo avíso.
+        </p>
+        <p class="terms__p">
+          *La unidad se apartará con un mínimo de MXP$25,000.00
+        </p>
+      </div>
+    </div>
+
+    <div id="popup" class="popup">
+      <div class="popup__container">
+        <form action="javascript:enter()">
+          <div class="popup__group">
+            <label class="popup__label"> Asesor Inmobiliario: </label>
+            <input id="broker-enter" type="text" class="popup__input" />
+          </div>
+          <div class="popup__group">
+            <label class="popup__label"> Cliente: </label>
+            <input id="client-enter" type="text" class="popup__input" />
+          </div>
+          <div class="popup__group">
+            <label class="popup__label"> Correo electrónico: </label>
+            <input id="email-enter" type="email" class="popup__input" />
+          </div>
+          <div class="popup__group">
+            <label class="popup__label"> Teléfono: </label>
+            <input id="tel-enter" type="tel" class="popup__input" />
+          </div>
+          <div class="popup__group">
+            <label class="popup__label"> Contraseña: </label>
+            <input id="password-enter" type="password" class="popup__input" />
+          </div>
+
+          <div id="error-msg" class="popup__error-msg"></div>
+
+          <div class="popup__button">
+            <input
+              type="submit"
+              value="Entrar"
+              style="-webkit-appearance: none"
+              class="button button--secondary"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="spinner" class="loading">
+      <div class="loading__img"></div>
+    </div>
   </body>
 </html>
