@@ -72,7 +72,15 @@ input:disabled
 button:disabled
   opacity: 0.5   
 
-#btn-pdf,
-#btn-clean
-  @media print 
+@media print
+
+  #btn-pdf,
+  #btn-clean,
+  #special-payments-form
     display: none
+
+  html
+    font-size: 45%
+
+  #terms-info-hidden
+    display: flex

@@ -38,7 +38,7 @@
         <button
           id="btn-pdf"
           class="button button--primary"
-          onclick="createPDF()"
+          onclick="javascript:window.print()"
         >
           Imprimir PDF
         </button>
@@ -326,9 +326,23 @@
         </div>
       </div>
 
+      <div id="terms-info-hidden" class="terms terms-hidden">
+        <p class="terms__p">
+          *Vigencia de 15 dìas a partir de la fecha de cotización.
+        </p>
+        <p class="terms__p">*Los precios no incluyen gastos notariales.</p>
+        <p class="terms__p">
+          *Los valores arriba señalados son informativos y pueden varíar sin
+          previo avíso.
+        </p>
+        <p class="terms__p">
+          *La unidad se apartará con un mínimo de MXP$25,000.00
+        </p>
+      </div>
+
       <div id="special-payments-container" class="special-payments">
         <h3>APORTACIONES EXTRAORDINARIAS</h1>
-        <div class="special-payments__form-container">
+        <div id="special-payments-form" class="special-payments__form-container">
           <div class="special-payments__group">
             <select
               id="months"
@@ -354,20 +368,6 @@
 
       <div id="special-payments-table-container" class="table-container">
         <table id="special-payments-table" class="table"></table>
-      </div>
-
-      <div id="terms-info-hidden" class="terms terms-hidden">
-        <p class="terms__p">
-          *Vigencia de 15 dìas a partir de la fecha de cotización.
-        </p>
-        <p class="terms__p">*Los precios no incluyen gastos notariales.</p>
-        <p class="terms__p">
-          *Los valores arriba señalados son informativos y pueden varíar sin
-          previo avíso.
-        </p>
-        <p class="terms__p">
-          *La unidad se apartará con un mínimo de MXP$25,000.00
-        </p>
       </div>
 
       <div id="down-payments-table-container" class="table-container">

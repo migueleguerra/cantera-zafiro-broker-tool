@@ -43,28 +43,3 @@ function removeErrorMsg() {
 function roundDecimals(x) {
   return Number(Math.round(x + "e2") + "e-2");
 }
-
-function showSpinner(show) {
-  getField("spinner").style = show ? VISIBLE : HIDDEN;
-}
-
-function editImage(edit) {
-  getField("image").style =
-    edit && getField("down-payments-table").innerHTML !== ""
-      ? "margin-top: 25rem"
-      : "margin-top: 0";
-}
-
-function hideElements(hide) {
-  getField("btn-pdf").style = hide ? HIDDEN : VISIBLE;
-  getField("btn-clean").style = hide ? HIDDEN : VISIBLE;
-  getField("months").style = hide ? HIDDEN : VISIBLE;
-  getField("special-payments-amount").style = hide ? HIDDEN : VISIBLE;
-  getField("btn-add").style = hide ? HIDDEN : VISIBLE;
-}
-
-function showTerms(show) {
-  getField("terms-info-hidden").style = show
-    ? "display: flex"
-    : "display: none";
-}
