@@ -1,4 +1,4 @@
-const MIN_PERCENTAGE = 20;
+let MIN_PERCENTAGE = 20;
 
 // Used for computing numbers in the form
 let financialProjection;
@@ -214,4 +214,21 @@ function disableFields(status) {
   getField("btn-add").disabled = isDisabled ? true : false;
   getField("btn-pdf").disabled = isDisabled ? true : false;
   getField("btn-clean").disabled = isDisabled ? true : false;
+}
+
+function confinanciamiento() {
+  const checkbox = getField('confi');
+  if (checkbox.checked) {
+    downPaymentPerc = 5;
+    monthlyPerc = 0;
+    getField('p-confi').style.visibility = "visible";
+  } else {
+    downPaymentPerc = 5;
+    monthlyPerc = 15;
+    getField('p-confi').style.visibility = "hidden";
+  }
+
+  MIN_PERCENTAGE = downPaymentPerc + monthlyPerc;
+  financialProjection.resetValues();
+  financialProjection.compute();
 }
